@@ -72,6 +72,12 @@ cf start moodle-app
 
 # Started
 
-```
+[http://moodle-app.cfapps.io](http://moodle-app.cfapps.io)
 
-```
+![](doc/moodle-install.png)
+
+
+# Reference
+
+1. [CF scripting](http://www.starkandwayne.com/blog/admin-scripting-your-way-around-cloud-foundry/)
+2. [PHP CF Helper](https://github.com/cloudfoundry-community/cf-helper-php)
