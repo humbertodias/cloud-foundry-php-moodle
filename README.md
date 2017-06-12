@@ -12,7 +12,7 @@ Publishing last version of moodle on Cloud Foundry.
 Clone
 
 ```
-https://github.com/humbertodias/cloud-foundry-php-moodle.git
+git clone https://github.com/humbertodias/cloud-foundry-php-moodle.git
 ```
 Inside
 
@@ -43,22 +43,31 @@ cp -R bp-config/. moodle/.bp-config
 Data
 
 ```
-cd moodle
-mkdir moodledata
+mkdir moodir/moodledata
 ```
 
-Deploy
+
+Login
+
+API End
+Pivotal: api.run.pivotal.io
+Bluemix: api.ng.bluemix.net
 
 ```
-cf login -a api.run.pivotal.io
-cf push --no-start
+cf login -a $API_ENDPOINT
+```
+
+Deploy (Stopped)
+
+```
+cf push -f manifest-pivotal.yml -d moodle --no-start
 ```
 
 
 Dynamic Configuration
 
 ```
-cp config-dist.php config.php
+cp config.php moodle/config.php
 cf env moodle-app
 ```
 
@@ -73,11 +82,15 @@ cf start moodle-app
 # Started
 
 [http://moodle-app.cfapps.io](http://moodle-app.cfapps.io)
+or
+[https://moodle-app.mybluemix.net](https://moodle-app.mybluemix.net)
 
 ![](doc/moodle-install.png)
 
 
 # Reference
 
-1. [CF scripting](http://www.starkandwayne.com/blog/admin-scripting-your-way-around-cloud-foundry/)
-2. [PHP CF Helper](https://github.com/cloudfoundry-community/cf-helper-php)
+1. [CF + Moodle](http://blog.cloudfoundry.gr.jp/2015/11/cf100apps-097-moodle.html)
+2. [CF scripting](http://www.starkandwayne.com/blog/admin-scripting-your-way-around-cloud-foundry/)
+3. [PHP CF Helper](https://github.com/cloudfoundry-community/cf-helper-php)
+4. [BlueMix Blog](https://www.ibm.com/blogs/bluemix/2014/06/getting-started-laravel-bluemix)

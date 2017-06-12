@@ -1,0 +1,9 @@
+applications:
+- name: moodle-app
+#  buildpack: php_buildpack
+  buildpack: https://github.com/cloudfoundry/php-buildpack#v4.3.34
+  services:
+  - elephant-sql-service
+  - sendgrid-service
+  env:
+      SENDGRID_API_KEY: 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

@@ -2,20 +2,15 @@ declared-services:
   elephant-sql-service:
     label: elephantsql
     plan: turtle
-  cleardb-sql-service:
-    label: cleardb
-    plan: cb5
-#   sendgrid-service:
-#     label: sendgrid
-#     plan: free
+   sendgrid-service:
+     label: sendgrid
+     plan: free
     
 applications:
 - name: moodle-app
-#  buildpack: php_buildpack
   buildpack: https://github.com/cloudfoundry/php-buildpack#v4.3.34
   services:
-#  - elephant-sql-service
-#  - sendgrid-service
-  - cleardb-sql-service
+  - elephant-sql-service
+  - sendgrid-service
   env:
       SENDGRID_API_KEY: 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

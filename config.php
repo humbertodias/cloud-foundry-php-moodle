@@ -1,4 +1,8 @@
 <?php
+
+$services = json_decode(getenv('VCAP_SERVICES'), true);
+$sqlCreds = $services['cleardb'][0]['credentials'];
+
 ///////////////////////////////////////////////////////////////////////////
 //                                                                       //
 // Moodle configuration file                                             //
@@ -38,12 +42,12 @@ $CFG = new stdClass();
 // will be stored.  This database must already have been created         //
 // and a username/password created to access it.                         //
 
-$CFG->dbtype    = 'pgsql';      // 'pgsql', 'mariadb', 'mysqli', 'mssql', 'sqlsrv' or 'oci'
+$CFG->dbtype    = 'mysql';      // 'pgsql', 'mariadb', 'mysqli', 'mssql', 'sqlsrv' or 'oci'
 $CFG->dblibrary = 'native';     // 'native' only at the moment
-$CFG->dbhost    = $_ENV["dbname"];  // eg 'localhost' or 'db.isp.com' or IP
-$CFG->dbname    = $_ENV["dbname"];     // database name, eg moodle
-$CFG->dbuser    = $_ENV["dbuser"];   // your database username
-$CFG->dbpass    = $_ENV["dbpass"];   // your database password
+$CFG->dbhost    = $sqlCreds['hostname'];  // eg 'localhost' or 'db.isp.com' or IP
+$CFG->dbname    = $sqlCreds['name'];     // database name, eg moodle
+$CFG->dbuser    = $sqlCreds['username'];   // your database username
+$CFG->dbpass    = $sqlCreds['password'];   // your database password
 $CFG->prefix    = 'mdl_';       // prefix to use for all table names
 $CFG->dboptions = array(
     'dbpersist' => false,       // should persistent database connections be
@@ -56,7 +60,7 @@ $CFG->dboptions = array(
                                 //  (please note mysql is always using socket
                                 //  if dbhost is 'localhost' - if you need
                                 //  local port connection use '127.0.0.1')
-    'dbport'    => '',          // the TCP port number to use when connecting
+    'dbport'    => '5432',          // the TCP port number to use when connecting
                                 //  to the server. keep empty string for the
                                 //  default port
     'dbhandlesoptions' => false,// On PostgreSQL poolers like pgbouncer don't
@@ -84,8 +88,7 @@ $CFG->dboptions = array(
 // If you need both intranet and Internet access please read
 // http://docs.moodle.org/en/masquerading
 
-// $CFG->wwwroot   = 'http://example.com/moodle';
-$CFG->wwwroot   = $_ENV["wwwroot"];
+$CFG->wwwroot   = 'http://moodle-app.mybluemix.net';
 
 
 //=========================================================================
@@ -101,8 +104,7 @@ $CFG->wwwroot   = $_ENV["wwwroot"];
 //
 // - On Windows systems you might specify something like 'c:\moodledata'
 
-$CFG->dataroot  = '/home/example/moodledata';
-$CFG->dataroot  = $_ENV["dataroot"];
+$CFG->dataroot  = '/home/vcap/app/moodledata';
 
 
 //=========================================================================
