@@ -20,30 +20,25 @@ Inside
 cd cloud-foundry-php-moodle
 ```
 
-Clone Moodle
+Moodle
 
 ```
-git clone --depth=1 -b MOODLE_33_STABLE git://git.moodle.org/moodle.git
+curl -L https://github.com/moodle/moodle/archive/MOODLE_33_STABLE.tar.gz | 
+tar xz
 ```
 
-Services
-
-```
-cf create-service elephantsql turtle elephant-sql-service
-cf create-service sendgrid free sendgrid-service
-```
 
 Static Configuration
 
 ```
-cp manifest.yml moodle/
-cp -R bp-config/. moodle/.bp-config
+cp manifest.yml moodle-MOODLE_33_STABLE/
+cp -R bp-config/. moodle-MOODLE_33_STABLE/.bp-config
 ```
 
 Data
 
 ```
-mkdir moodir/moodledata
+mkdir moodle-MOODLE_33_STABLE/moodledata
 ```
 
 
@@ -54,28 +49,26 @@ Pivotal: api.run.pivotal.io
 Bluemix: api.ng.bluemix.net
 
 ```
-cf login -a $API_ENDPOINT
+cf login -a api.run.pivotal.io
 ```
 
-Deploy (Stopped)
+Services
 
 ```
-cf push -f manifest-pivotal.yml -d moodle --no-start
+cf create-service elephantsql turtle elephant-sql-service
+cf create-service sendgrid free sendgrid-service
 ```
-
 
 Dynamic Configuration
 
 ```
 cp config.php moodle/config.php
-cf env moodle-app
 ```
 
-
-Start
+Deploy
 
 ```
-cf start moodle-app
+cf push -f manifest-pivotal.yml -p moodle-MOODLE_33_STABLE
 ```
 
 
