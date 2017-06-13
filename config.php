@@ -1,11 +1,8 @@
 <?php
 
 $services = json_decode(getenv('VCAP_SERVICES'), true);
-print_r($services);
-
 $uri = $services['elephantsql'][0]['credentials']['uri'];
 
-print_r($uri);
 
 function parse_postgres_uri($uri){
 	$parts = explode('@',$uri);
@@ -109,7 +106,9 @@ $CFG->dboptions = array(
 // If you need both intranet and Internet access please read
 // http://docs.moodle.org/en/masquerading
 
-$CFG->wwwroot   = 'http://moodle-app.mybluemix.net';
+//$application = json_decode(getenv('VCAP_APPLICATION'), true);
+//$CFG->wwwroot   = $application['application_uris'][0];
+$CFG->wwwroot  = getenv('WWWROOT');
 
 
 //=========================================================================
@@ -125,7 +124,7 @@ $CFG->wwwroot   = 'http://moodle-app.mybluemix.net';
 //
 // - On Windows systems you might specify something like 'c:\moodledata'
 
-$CFG->dataroot  = '/home/vcap/app/moodledata';
+$CFG->dataroot  = getenv('DATAROOT');
 
 
 //=========================================================================

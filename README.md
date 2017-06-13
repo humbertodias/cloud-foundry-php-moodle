@@ -31,7 +31,7 @@ tar xz
 Static Configuration
 
 ```
-cp manifest.yml moodle-MOODLE_33_STABLE/
+cp manifest-pivotal.yml moodle-MOODLE_33_STABLE/manifest.yml
 cp -R bp-config/. moodle-MOODLE_33_STABLE/.bp-config
 ```
 
@@ -62,13 +62,14 @@ cf create-service sendgrid free sendgrid-service
 Dynamic Configuration
 
 ```
-cp config.php moodle/config.php
+cp config.php moodle-MOODLE_33_STABLE/config.php
 ```
 
 Deploy
 
 ```
-cf push -f manifest-pivotal.yml -p moodle-MOODLE_33_STABLE
+cd moodle-MOODLE_33_STABLE
+cf push
 ```
 
 
@@ -87,3 +88,4 @@ or
 2. [CF scripting](http://www.starkandwayne.com/blog/admin-scripting-your-way-around-cloud-foundry/)
 3. [PHP CF Helper](https://github.com/cloudfoundry-community/cf-helper-php)
 4. [BlueMix Blog](https://www.ibm.com/blogs/bluemix/2014/06/getting-started-laravel-bluemix)
+5. [BuildPack configuration](https://docs.cloudfoundry.org/buildpacks/php/gsg-php-config.html)
